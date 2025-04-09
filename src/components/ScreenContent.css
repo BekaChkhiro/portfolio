@@ -1,0 +1,235 @@
+.screen-content {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  height: 44%;
+  background-color: #000;
+  border-radius: 20px;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.windows-desktop {
+  width: 100%;
+  height: 100%;
+  background: url('https://wallpapercave.com/wp/wp8543786.jpg') center/cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.desktop-icons {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 80px);
+  gap: 20px;
+}
+
+.desktop-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.desktop-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.desktop-icon span {
+  font-size: 12px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: rgba(36, 36, 36, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.start-menu-button {
+  height: 32px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.start-menu-button:hover,
+.start-menu-button.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.start-menu {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 250px;
+  background: rgba(36, 36, 36, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 8px 8px 0 0;
+  padding: 10px;
+  animation: slideUp 0.2s ease-out;
+}
+
+.start-menu-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.start-menu-items {
+  margin-top: 10px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.taskbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.time {
+  color: white;
+  font-size: 12px;
+  padding: 0 10px;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Keep existing loading styles */
+.boot-loading-container {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.spinner-container {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.spinner {
+  width: 100%;
+  height: 100%;
+  border: 4px solid transparent;
+  border-top-color: #0078D4;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  position: absolute;
+}
+
+.spinner-inner {
+  width: 70%;
+  height: 70%;
+  border: 4px solid transparent;
+  border-top-color: #28A8EA;
+  border-radius: 50%;
+  animation: spin-reverse 1s linear infinite;
+  position: absolute;
+  top: 15%;
+  left: 15%;
+}
+
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #0078D4;
+  border-radius: 50%;
+  margin: 0 4px;
+  animation: loadingDots 1.5s infinite;
+  display: inline-block;
+}
+
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.loading-text {
+  color: #fff;
+  font-size: 18px;
+  font-family: "Segoe UI", sans-serif;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes loadingDots {
+  0%, 80%, 100% { 
+    transform: scale(0);
+    opacity: 0.3;
+  }
+  40% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}

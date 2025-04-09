@@ -3,6 +3,7 @@ import { OrbitControls, useGLTF } from '@react-three/drei'
 import { useState, useRef } from 'react'
 import * as THREE from 'three'
 import { FaPlay, FaPowerOff } from 'react-icons/fa'
+import { ScreenContent } from './components/ScreenContent'
 import './App.css'
 
 function Screen({ isZoomed, isPowered }: { isZoomed: boolean; isPowered: boolean }) {
@@ -58,7 +59,6 @@ function App() {
         <OrbitControls enableZoom={false} />
       </Canvas>
 
-      {/* Start button - only show when not zoomed */}
       {!isZoomed && (
         <button 
           onClick={() => setIsZoomed(true)}
@@ -68,7 +68,6 @@ function App() {
         </button>
       )}
       
-      {/* Power button - only show when zoomed but not powered */}
       {isZoomed && !isPowered && (
         <button 
           onClick={() => {
@@ -84,7 +83,6 @@ function App() {
         </button>
       )}
 
-      {/* Power off button - only show when screen is powered on */}
       {isZoomed && isPowered && (
         <button 
           onClick={() => {
@@ -97,15 +95,7 @@ function App() {
         </button>
       )}
 
-      {/* Screen content - only show when both zoomed and powered */}
-      {isZoomed && isPowered && (
-        <div className="screen-content">
-          <div className="content-container">
-            <h1>Welcome!</h1>
-            <p>This is your screen content.</p>
-          </div>
-        </div>
-      )}
+      <ScreenContent isVisible={isZoomed && isPowered} />
     </div>
   );
 }
