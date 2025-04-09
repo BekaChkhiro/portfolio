@@ -1,0 +1,206 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+}
+
+.start-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  background: linear-gradient(145deg, #2563eb, #3b82f6);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-button:hover {
+  transform: translateX(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5);
+  background: linear-gradient(145deg, #3b82f6, #60a5fa);
+}
+
+.start-button svg {
+  width: 24px;
+  height: 24px;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.start-button:hover svg {
+  transform: scale(1.1);
+}
+
+@keyframes pulse {
+  0% { 
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  }
+  50% { 
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5);
+  }
+  100% { 
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  }
+}
+
+.start-button.pulse {
+  animation: pulse 2s infinite;
+}
+
+.power-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #2c3e50, #34495e);
+  box-shadow: 0 0 15px rgba(52, 152, 219, 0.3),
+              inset 0 0 15px rgba(52, 152, 219, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: buttonAppear 0.5s ease-out;
+}
+
+.power-button svg {
+  width: 28px;
+  height: 28px;
+  color: #3498db;
+  filter: drop-shadow(0 0 2px #3498db);
+  transition: all 0.4s ease;
+}
+
+.power-button:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 0 25px rgba(52, 152, 219, 0.5),
+              inset 0 0 20px rgba(52, 152, 219, 0.2);
+}
+
+.power-button:hover svg {
+  color: #5dade2;
+  filter: drop-shadow(0 0 4px #3498db);
+  transform: rotate(360deg);
+}
+
+.power-button.powered {
+  background: linear-gradient(145deg, #c0392b, #e74c3c);
+  box-shadow: 0 0 20px rgba(231, 76, 60, 0.5),
+              inset 0 0 15px rgba(231, 76, 60, 0.2);
+  animation: powerOnPulse 2s infinite;
+}
+
+.power-button.powered:hover {
+  background: linear-gradient(145deg, #e74c3c, #c0392b);
+  box-shadow: 0 0 25px rgba(231, 76, 60, 0.7),
+              inset 0 0 20px rgba(231, 76, 60, 0.3);
+  transform: translateX(-50%) scale(1.05);
+}
+
+@keyframes powerOnPulse {
+  0% {
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.3),
+                inset 0 0 15px rgba(231, 76, 60, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.5),
+                inset 0 0 20px rgba(231, 76, 60, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.3),
+                inset 0 0 15px rgba(231, 76, 60, 0.1);
+  }
+}
+
+@keyframes buttonAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes powerGlow {
+  0% {
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.3),
+                inset 0 0 15px rgba(52, 152, 219, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(52, 152, 219, 0.5),
+                inset 0 0 20px rgba(52, 152, 219, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.3),
+                inset 0 0 15px rgba(52, 152, 219, 0.1);
+  }
+}
+
+.screen-content {
+  position: absolute;
+  top: 36.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 37%;
+  height: 45%;
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+  z-index: 5;
+}
+
+.content-container {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.power-button.powered svg {
+  color: #ffffff;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+  transition: all 0.4s ease;
+}
+
+.power-button.powered:hover svg {
+  color: #ffffff;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+  transform: rotate(360deg);
+}
