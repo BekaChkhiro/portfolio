@@ -4,8 +4,6 @@ import './RemoteControl.css';
 const RemoteControl: React.FC = () => {
   const [networkIP, setNetworkIP] = useState<string>('localhost');
   const [connectionUrl, setConnectionUrl] = useState<string>('http://localhost:8080');
-  const [isProduction, setIsProduction] = useState<boolean>(false);
-  const [backendUrl, setBackendUrl] = useState<string>('');
 
   const generateQRCode = (url: string): string => {
     // Direct URL to backend - no redirect needed
@@ -60,7 +58,6 @@ const RemoteControl: React.FC = () => {
       // Use the actual network IP for backend connection with session page
       const url = `http://${ip}:9090/session.html`;
       setConnectionUrl(url);
-      setBackendUrl(url);
     });
   }, []);
 
