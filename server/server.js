@@ -2,9 +2,16 @@ import { WebSocketServer } from 'ws';
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
-import robot from 'robotjs';
 import { fileURLToPath } from 'url';
 import os from 'os';
+
+let robot = null;
+try {
+  robot = (await import('robotjs')).default;
+  console.log('✅ RobotJS loaded - remote control enabled');
+} catch (error) {
+  console.log('⚠️ RobotJS not available - remote control disabled (server mode)');
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -65,6 +72,11 @@ wss.on('connection', (ws, req) => {
       const data = JSON.parse(message);
       console.log(`Received: ${data.type}`);
       
+      if (!robot) {
+        console.log('⚠️ Robot control not available');
+        return;
+      }
+
       switch (data.type) {
         case 'move':
           const screenSize = robot.getScreenSize();
@@ -128,7 +140,10 @@ process.on('SIGINT', () => {
 console.log('📋 Remote Control Server Configuration:');
 console.log(`   Port: ${port}`);
 console.log(`   Network IP: ${networkIP}`);
-console.log(`   Screen Size: ${robot.getScreenSize().width}x${robot.getScreenSize().height}`);
-
-// Set mouse speed for smoother movement
-robot.setMouseDelay(2);
+if (robot) {
+  console.log(`   Screen Size: ${robot.getScreenSize().width}x${robot.getScreenSize().height}`);
+  // Set mouse speed for smoother movement
+  robot.setMouseDelay(2);
+} else {
+  console.log('   Screen Size: N/A (server mode)');
+}
