@@ -4,7 +4,6 @@ import { useState, useRef } from 'react'
 import * as THREE from 'three'
 import { FaPlay, FaPowerOff } from 'react-icons/fa'
 import { ScreenContent } from './components/ScreenContent'
-import backgroundImage from '/background.png'
 import './App.css'
 
 function Screen({ isZoomed, isPowered }: { isZoomed: boolean; isPowered: boolean }) {
@@ -50,7 +49,7 @@ function App() {
     <div style={{
       width: '100vw',
       height: '100vh',
-      backgroundImage: `url(${backgroundImage})`,
+      backgroundImage: 'url("./background.png")',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       position: 'relative'
