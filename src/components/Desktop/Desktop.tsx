@@ -60,7 +60,7 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
     setContextMenu({ x: e.clientX, y: e.clientY, appId });
   };
 
-  const handlePinApp = (appId: string, icon: React.ReactNode, title: string) => {
+  const handlePinApp = (appId: string) => {
     togglePinApp(appId);
     setContextMenu(null);
   };
@@ -341,7 +341,7 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
             onClick={() => {
               const app = Object.values(applications).find(a => a.id === contextMenu.appId);
               if (app) {
-                handlePinApp(app.id, app.icon, app.title);
+                handlePinApp(app.id);
               }
             }}
           >
