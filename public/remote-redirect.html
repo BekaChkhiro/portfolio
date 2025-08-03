@@ -50,6 +50,13 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            line-height: 1.4;
+        }
+        
+        .redirect-button small {
+            font-size: 12px;
+            opacity: 0.8;
+            font-weight: normal;
         }
         
         .redirect-button:hover {
@@ -90,10 +97,20 @@
         
         // Get the current host and port from URL parameters or default
         const urlParams = new URLSearchParams(window.location.search);
-        const targetUrl = urlParams.get('url') || 'http://localhost:8080';
+        let targetUrl = urlParams.get('url') || 'http://localhost:8080';
         
-        // Update button href
+        // If we're on mobile and the URL contains localhost, try to get the actual server IP
+        if (targetUrl.includes('localhost') && /Mobi|Android/i.test(navigator.userAgent)) {
+            // Try to get the network IP from the current page's host
+            const currentHost = window.location.hostname;
+            if (currentHost !== 'localhost' && currentHost !== '127.0.0.1') {
+                targetUrl = `http://${currentHost}:8080`;
+            }
+        }
+        
+        // Update button href and display
         redirectBtn.href = targetUrl;
+        redirectBtn.innerHTML = `🎮 დაკავშირება<br><small>${targetUrl}</small>`;
         
         // Countdown timer
         const timer = setInterval(() => {
@@ -110,6 +127,12 @@
         redirectBtn.addEventListener('click', (e) => {
             clearInterval(timer);
         });
+        
+        // Debug info
+        console.log('Original URL:', urlParams.get('url'));
+        console.log('Target URL:', targetUrl);
+        console.log('Current host:', window.location.hostname);
+        console.log('User agent:', navigator.userAgent);
     </script>
 </body>
 </html>
