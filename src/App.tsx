@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import * as THREE from 'three'
 import { FaPlay, FaPowerOff } from 'react-icons/fa'
 import { ScreenContent } from './components/ScreenContent'
+import backgroundImage from '/background.png'
 import './App.css'
 
 function Screen({ isZoomed, isPowered }: { isZoomed: boolean; isPowered: boolean }) {
@@ -49,7 +50,7 @@ function App() {
     <div style={{
       width: '100vw',
       height: '100vh',
-      backgroundImage: 'url(/background.png)',
+      backgroundImage: `url(${backgroundImage})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       position: 'relative'
@@ -59,12 +60,12 @@ function App() {
         style={{ width: '100%', height: '100%' }}
         gl={{ 
           antialias: true,
-          alpha: false,
+          alpha: true,
           powerPreference: "high-performance",
           failIfMajorPerformanceCaveat: false,
           preserveDrawingBuffer: false
         }}
-        onCreated={({ gl }) => {
+        onCreated={({ gl, scene }) => {
           gl.domElement.addEventListener('webglcontextlost', (event) => {
             console.warn('WebGL context lost:', event);
             event.preventDefault();
@@ -72,6 +73,7 @@ function App() {
           gl.domElement.addEventListener('webglcontextrestored', () => {
             console.log('WebGL context restored');
           });
+          scene.background = null;
         }}
       >
         <ambientLight intensity={0.5} />

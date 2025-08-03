@@ -10,7 +10,8 @@
       "Bash(npm run:*)",
       "Bash(pkill:*)",
       "Bash(true)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(ls:*)"
     ],
     "deny": []
   }
