@@ -40,6 +40,11 @@ function App() {
   const [isZoomed, setIsZoomed] = useState(false);
   const [isPowered, setIsPowered] = useState(false);
 
+  const handlePowerOff = () => {
+    setIsPowered(false);
+    setIsZoomed(false);
+  };
+
   return (
     <div style={{
       width: '100vw',
@@ -70,9 +75,7 @@ function App() {
       
       {isZoomed && !isPowered && (
         <button 
-          onClick={() => {
-            setIsPowered(true);
-          }}
+          onClick={() => setIsPowered(true)}
           className="power-button"
           style={{
             animation: 'buttonAppear 0.5s ease-out, powerGlow 2s infinite'
@@ -95,7 +98,7 @@ function App() {
         </button>
       )}
 
-      <ScreenContent isVisible={isZoomed && isPowered} />
+      <ScreenContent isVisible={isZoomed && isPowered} onPowerOff={handlePowerOff} />
     </div>
   );
 }

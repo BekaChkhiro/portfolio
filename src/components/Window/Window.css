@@ -1,0 +1,137 @@
+/* Window Styles */
+.window {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 1000;
+  overflow: hidden;
+  animation: windowOpen 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.window.maximized {
+  border-radius: 0;
+  animation: windowMaximize 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes windowOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes windowMaximize {
+  from {
+    border-radius: 12px;
+  }
+  to {
+    border-radius: 0;
+  }
+}
+
+.window-header {
+  height: 30px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  cursor: move;
+  user-select: none;
+}
+
+.window-title {
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.window-icon {
+  font-size: 14px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.window-control {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.window-control.minimize {
+  background: #ffbd44;
+}
+
+.window-control.minimize:hover {
+  background: #ffaa00;
+}
+
+.window-control.maximize {
+  background: #00ca56;
+}
+
+.window-control.maximize:hover {
+  background: #00b848;
+}
+
+.window-control.close {
+  background: #ff605c;
+}
+
+.window-control.close:hover {
+  background: #ff4444;
+}
+
+.window-control svg {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.window-control:hover svg {
+  opacity: 0.8;
+}
+
+.window-content {
+  height: calc(100% - 30px);
+  background: white;
+  overflow: auto;
+  padding: 16px;
+}
+
+/* Custom scrollbar for window content */
+.window-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 4px;
+}
+
+.window-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #764ba2, #f093fb);
+}

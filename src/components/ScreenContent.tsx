@@ -1,130 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import { FaWindows, FaFolder, FaChrome, FaRecycle } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { SetupWizard } from './SetupWizard/SetupWizard';
+import { Loading } from './Loading/Loading';
+import { Desktop } from './Desktop/Desktop';
+import { WindowProvider } from '../contexts/WindowContext';
 import './ScreenContent.css';
 
-interface DesktopIconProps {
+interface Theme {
+  name: string;
+  background: string;
+  primary: string;
+  secondary: string;
+  accent: string;
+  description: string;
   icon: React.ReactNode;
-  label: string;
+  category: 'vibrant' | 'nature' | 'minimal';
 }
 
-const DesktopIcon: React.FC<DesktopIconProps> = ({ icon, label }) => (
-  <div className="desktop-icon">
-    {icon}
-    <span>{label}</span>
-  </div>
-);
+interface UserPreferences {
+  theme: Theme;
+  userName: string;
+  language: string;
+  avatar: string;
+  soundEnabled: boolean;
+}
 
-export const ScreenContent: React.FC<{ isVisible: boolean }> = ({ isVisible }) => {
-  const [bootPhase, setBootPhase] = useState<'loading' | 'desktop'>('loading');
-  const [loadingText, setLoadingText] = useState('Starting Windows');
-  
-  useEffect(() => {
-    if (isVisible) {
-      setBootPhase('loading');
-      setLoadingText('Starting Windows');
+export const ScreenContent: React.FC<{ isVisible: boolean; onPowerOff?: () => void }> = ({ isVisible, onPowerOff }) => {
+  const [bootPhase, setBootPhase] = useState<'setup' | 'loading' | 'desktop'>(() => {
+    // Check if setup has been completed before
+    const savedPreferences = localStorage.getItem('chkhiros-preferences');
+    return savedPreferences ? 'loading' : 'setup';
+  });
+  const [userPreferences, setUserPreferences] = useState<UserPreferences | null>(() => {
+    const savedPreferences = localStorage.getItem('chkhiros-preferences');
+    return savedPreferences ? JSON.parse(savedPreferences) : null;
+  });
 
-      // Update loading text
-      const texts = [
-        'Starting ChkhiroOS',
-        'Loading system components',
-        'Preparing your desktop',
-        'Almost ready'
-      ];
-      
-      texts.forEach((text, index) => {
-        setTimeout(() => {
-          setLoadingText(text);
-        }, index * 1000);
-      });
+  const handleSetupComplete = (preferences: UserPreferences) => {
+    setUserPreferences(preferences);
+    setBootPhase('loading');
+    
+    // Save preferences to localStorage
+    localStorage.setItem('chkhiros-preferences', JSON.stringify(preferences));
+  };
 
-      // Switch to desktop after loading
-      const desktopTimer = setTimeout(() => {
-        setBootPhase('desktop');
-      }, 3000);
-
-      return () => {
-        clearTimeout(desktopTimer);
-      };
-    }
-  }, [isVisible]);
-
-  const [showStartMenu, setShowStartMenu] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+  const handleLoadingComplete = () => {
+    setBootPhase('desktop');
+  };
 
   if (!isVisible) return null;
 
   return (
-    <div className="screen-content">
-      {bootPhase === 'loading' && (
-        <div className="boot-loading-container">
-          <div className="spinner-container">
-            <div className="spinner"></div>
-            <div className="spinner-inner"></div>
-          </div>
-          <div className="loading-text">{loadingText}</div>
-          <div className="loading-dots">
-            {[...Array(5)].map((_, i) => (
-              <div 
-                key={i} 
-                className="loading-dot" 
-                style={{ animationDelay: `${i * 0.2}s` }}
-              />
-            ))}
-          </div>
-        </div>
-      )}
+    <div className="screen-content" style={{
+      background: userPreferences ? userPreferences.theme.background : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    }}>
+      <SetupWizard 
+        isVisible={bootPhase === 'setup'}
+        onComplete={handleSetupComplete}
+      />
+
+      <Loading 
+        isVisible={bootPhase === 'loading'}
+        theme={userPreferences?.theme}
+        userName={userPreferences?.userName}
+        onComplete={handleLoadingComplete}
+      />
 
       {bootPhase === 'desktop' && (
-        <div className="windows-desktop">
-          <div className="desktop-icons">
-            <DesktopIcon icon={<FaFolder size={32} />} label="My Projects" />
-            <DesktopIcon icon={<FaChrome size={32} />} label="Browser" />
-            <DesktopIcon icon={<FaRecycle size={32} />} label="Recycle Bin" />
-          </div>
-
-          <div className="taskbar">
-            <button 
-              className={`start-menu-button ${showStartMenu ? 'active' : ''}`}
-              onClick={() => setShowStartMenu(!showStartMenu)}
-            >
-              <FaWindows /> Start
-            </button>
-
-            {showStartMenu && (
-              <div className="start-menu">
-                <div className="start-menu-header">
-                  <FaWindows size={20} />
-                  <span>Welcome</span>
-                </div>
-                <div className="start-menu-items">
-                  <div className="menu-item">
-                    <FaFolder /> Documents
-                  </div>
-                  <div className="menu-item">
-                    <FaChrome /> Browser
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div className="taskbar-right">
-              <div className="time">
-                {currentTime.toLocaleTimeString([], { 
-                  hour: '2-digit', 
-                  minute: '2-digit'
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+        <WindowProvider>
+          <Desktop 
+            theme={userPreferences?.theme}
+            userName={userPreferences?.userName}
+            onPowerOff={onPowerOff}
+          />
+        </WindowProvider>
       )}
     </div>
   );

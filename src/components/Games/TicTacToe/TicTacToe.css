@@ -1,0 +1,150 @@
+/* Tic Tac Toe Styles */
+.tictactoe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.game-info {
+  width: 100%;
+  text-align: center;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.score-item span:first-child {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+}
+
+.score {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2196f3;
+}
+
+.player-x {
+  color: #f44336 !important;
+}
+
+.player-o {
+  color: #4caf50 !important;
+}
+
+.game-status {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.game-status .winner {
+  color: #4caf50;
+}
+
+.game-status .tie {
+  color: #ff9800;
+}
+
+.game-status .current-player.x {
+  color: #f44336;
+}
+
+.game-status .current-player.o {
+  color: #4caf50;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  background: #ddd;
+  border-radius: 8px;
+  padding: 4px;
+  margin: 16px 0;
+}
+
+.cell {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell:hover:not(:disabled) {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.cell:disabled {
+  cursor: not-allowed;
+}
+
+.cell.x {
+  color: #f44336;
+  background: #ffebee;
+}
+
+.cell.o {
+  color: #4caf50;
+  background: #e8f5e8;
+}
+
+.game-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.control-btn {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  transform: translateY(-1px);
+}
+
+.control-btn.secondary {
+  background: linear-gradient(135deg, #757575, #616161);
+}
+
+.control-btn.secondary:hover {
+  background: linear-gradient(135deg, #616161, #424242);
+}
