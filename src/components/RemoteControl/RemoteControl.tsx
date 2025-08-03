@@ -57,8 +57,8 @@ const RemoteControl: React.FC = () => {
     // Always use network IP for backend connection
     getNetworkIP().then(ip => {
       setNetworkIP(ip);
-      // Use the actual network IP for backend connection
-      const url = `http://${ip}:9090`;
+      // Use the actual network IP for backend connection with session page
+      const url = `http://${ip}:9090/session.html`;
       setConnectionUrl(url);
       setBackendUrl(url);
     });
