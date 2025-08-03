@@ -61,7 +61,7 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
   };
 
   const handlePinApp = (appId: string, icon: React.ReactNode, title: string) => {
-    togglePinApp(appId, icon, title);
+    togglePinApp(appId);
     setContextMenu(null);
   };
 

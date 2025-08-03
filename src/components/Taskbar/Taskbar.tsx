@@ -83,7 +83,7 @@ export const Taskbar: React.FC<TaskbarProps> = ({ userName = 'User', application
   const handlePinToggle = (appId: string) => {
     const app = applications[appId];
     if (app) {
-      togglePinApp(appId, app.icon, app.title);
+      togglePinApp(appId);
     }
     setAppMenuOpen(null);
   };
