@@ -8,7 +8,7 @@ interface LoadingProps {
   onComplete: () => void;
 }
 
-export function Loading({ isVisible, theme, userName, onComplete }: LoadingProps) {
+export function Loading({ isVisible, userName, onComplete }: LoadingProps) {
   if (!isVisible) return null;
 
   const [progress, setProgress] = useState(0);

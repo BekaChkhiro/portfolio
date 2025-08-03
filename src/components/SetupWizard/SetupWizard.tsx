@@ -64,7 +64,7 @@ export function SetupWizard({ isVisible, onComplete }: SetupWizardProps) {
   const [selectedTheme, setSelectedTheme] = useState<Theme>(themes[0]);
   const [language, setLanguage] = useState('en');
   const [avatar, setAvatar] = useState('👤');
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [soundEnabled] = useState(true);
 
   if (!isVisible) return null;
 

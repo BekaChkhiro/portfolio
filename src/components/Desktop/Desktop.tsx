@@ -13,7 +13,8 @@ import {
   FaVideo,
   FaThumbtack,
   FaUser,
-  FaCamera
+  FaCamera,
+  FaMobile
 } from 'react-icons/fa';
 import { Taskbar } from '../Taskbar/Taskbar';
 import { useWindows } from '../../contexts/WindowContext';
@@ -23,6 +24,7 @@ import { Games } from '../Games/Games';
 import { Terminal } from '../Terminal/Terminal';
 import { AboutMe } from '../AboutMe/AboutMe';
 import { Camera } from '../Camera/Camera';
+import RemoteControl from '../RemoteControl/RemoteControl';
 import './Desktop.css';
 
 interface DesktopIconProps {
@@ -185,6 +187,14 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
       component: <Camera />,
       position: { x: 200, y: 100 },
       size: { width: 750, height: 650 }
+    },
+    remoteControl: {
+      id: 'remoteControl',
+      title: 'Remote Control',
+      icon: <FaMobile />,
+      component: <RemoteControl />,
+      position: { x: 100, y: 100 },
+      size: { width: 650, height: 500 }
     }
   };
 
@@ -280,6 +290,13 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
           color="#ff9500"
           onClick={() => openWindow(applications.camera)}
           onContextMenu={(e) => handleContextMenu(e, 'camera')}
+        />
+        <DesktopIcon 
+          icon={<FaMobile size={20} />} 
+          label="Remote Control" 
+          color="#00ff88"
+          onClick={() => openWindow(applications.remoteControl)}
+          onContextMenu={(e) => handleContextMenu(e, 'remoteControl')}
         />
         <DesktopIcon 
           icon={<FaRecycle size={20} />} 

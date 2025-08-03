@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { FaCamera, FaVideo, FaStop, FaImages, FaDownload, FaTrash, FaPlay, FaCog, FaExpand, FaCompress } from 'react-icons/fa';
+import { FaCamera, FaVideo, FaStop, FaImages, FaDownload, FaTrash, FaPlay } from 'react-icons/fa';
 import './Camera.css';
 
 interface CapturedMedia {
@@ -23,11 +23,7 @@ export const Camera: React.FC = () => {
   const [selectedMedia, setSelectedMedia] = useState<CapturedMedia | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
   const [error, setError] = useState<string>('');
-  const [recordingTime, setRecordingTime] = useState(0);
-  const [recordingTimer, setRecordingTimer] = useState<NodeJS.Timeout | null>(null);
-  const [resolution, setResolution] = useState<'480p' | '720p' | '1080p'>('720p');
-  const [showSettings, setShowSettings] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [resolution] = useState<'480p' | '720p' | '1080p'>('720p');
 
   useEffect(() => {
     initializeCamera();

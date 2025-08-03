@@ -21,8 +21,7 @@ interface TextEditorProps {
 
 export const TextEditor: React.FC<TextEditorProps> = ({ 
   initialContent = '', 
-  readOnly = false,
-  title = 'Text Editor'
+  readOnly = false
 }) => {
   const [content, setContent] = useState(initialContent);
   const [fontSize, setFontSize] = useState(14);

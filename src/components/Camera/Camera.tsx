@@ -28,7 +28,7 @@ export const Camera: React.FC = () => {
   const [resolution, setResolution] = useState<'480p' | '720p' | '1080p'>('720p');
   const [showSettings, setShowSettings] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   useEffect(() => {
     initializeCamera();

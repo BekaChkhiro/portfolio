@@ -25,7 +25,7 @@ interface WindowContextType {
   focusWindow: (id: string) => void;
   updateWindowPosition: (id: string, position: { x: number; y: number }) => void;
   updateWindowSize: (id: string, size: { width: number; height: number }) => void;
-  togglePinApp: (appId: string, icon: ReactNode, title: string) => void;
+  togglePinApp: (appId: string) => void;
 }
 
 const WindowContext = createContext<WindowContextType | undefined>(undefined);
@@ -116,7 +116,7 @@ export const WindowProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     ));
   };
 
-  const togglePinApp = (appId: string, icon: ReactNode, title: string) => {
+  const togglePinApp = (appId: string) => {
     setPinnedApps(prev => {
       const newPinned = prev.includes(appId) 
         ? prev.filter(id => id !== appId)
