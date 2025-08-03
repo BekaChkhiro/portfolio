@@ -4,9 +4,13 @@ import './RemoteControl.css';
 const RemoteControl: React.FC = () => {
   const [networkIP, setNetworkIP] = useState<string>('localhost');
   const [connectionUrl, setConnectionUrl] = useState<string>('http://localhost:8080');
+  const [sessionId, setSessionId] = useState<string>('');
+
+  const generateSessionId = (): string => {
+    return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  };
 
   const generateQRCode = (url: string): string => {
-    // Direct URL to backend - no redirect needed
     return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
   };
 
@@ -52,13 +56,26 @@ const RemoteControl: React.FC = () => {
   };
 
   useEffect(() => {
-    // Always use network IP for backend connection
-    getNetworkIP().then(ip => {
-      setNetworkIP(ip);
-      // Use the actual network IP for backend connection with session page
-      const url = `http://${ip}:9090/session.html`;
+    // Generate unique session ID
+    const newSessionId = generateSessionId();
+    setSessionId(newSessionId);
+    
+    // Check if we have a backend URL from environment
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    
+    if (backendUrl && backendUrl !== 'http://localhost:9090') {
+      // Production mode - use environment backend URL
+      const url = `${backendUrl}/session.html?sessionId=${newSessionId}`;
       setConnectionUrl(url);
-    });
+      setNetworkIP(new URL(backendUrl).hostname);
+    } else {
+      // Development mode - use network IP
+      getNetworkIP().then(ip => {
+        setNetworkIP(ip);
+        const url = `http://${ip}:9090/session.html?sessionId=${newSessionId}`;
+        setConnectionUrl(url);
+      });
+    }
   }, []);
 
   const qrCode = generateQRCode(connectionUrl);
@@ -85,6 +102,12 @@ const RemoteControl: React.FC = () => {
             <span className="ip-status warning">⚠️ Using localhost</span>
           )}
         </div>
+        {sessionId && (
+          <div className="session-status">
+            <strong>🆔 Session ID: </strong>
+            <span className="session-id">{sessionId}</span>
+          </div>
+        )}
       </div>
 
       <div className="qr-section">
