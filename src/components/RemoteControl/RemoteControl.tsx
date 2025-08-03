@@ -6,16 +6,8 @@ const RemoteControl: React.FC = () => {
   const [connectionUrl, setConnectionUrl] = useState<string>('http://localhost:8080');
 
   const generateQRCode = (url: string): string => {
-    try {
-      const QRCode = require('qrcode-generator');
-      const qr = QRCode(4, 'L');
-      qr.addData(url);
-      qr.make();
-      return qr.createDataURL(8);
-    } catch (error) {
-      console.error('Error generating QR code:', error);
-      return '';
-    }
+    // Use online QR code service since require() doesn't work in Vite
+    return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
   };
 
   const getNetworkIP = async () => {
@@ -92,109 +84,14 @@ const RemoteControl: React.FC = () => {
         </div>
       </div>
 
-      <div className="setup-instructions">
-        <div className="step">
-          <div className="step-number">1</div>
-          <div className="step-content">
-            <h3>🖥️ Start the Server</h3>
-            <p>Open Terminal and run:</p>
-            <div className="code-block">
-              <code>npm run remote-server</code>
-              <button 
-                onClick={() => navigator.clipboard.writeText('npm run remote-server')}
-                className="copy-button"
-              >
-                📋
-              </button>
+      <div className="qr-section">
+        {qrCode && (
+          <div className="qr-container-large">
+            <div className="qr-frame">
+              <img src={qrCode} alt="QR Code for Phone Connection" className="qr-code-large" />
             </div>
           </div>
-        </div>
-
-        <div className="step qr-step">
-          <div className="step-number">2</div>
-          <div className="step-content">
-            <h3>📱 Connect Your Phone</h3>
-            <p>Once the server is running, scan this QR code with your phone's camera:</p>
-            
-            <div className="qr-main-section">
-              {qrCode && (
-                <div className="qr-container-large">
-                  <div className="qr-frame">
-                    <img src={qrCode} alt="QR Code for Phone Connection" className="qr-code-large" />
-                    <div className="qr-label">📲 Scan with Phone Camera</div>
-                  </div>
-                </div>
-              )}
-              
-              <div className="qr-instructions">
-                <div className="qr-instruction-item">
-                  <span className="instruction-icon">📱</span>
-                  <span>Open Camera app on phone</span>
-                </div>
-                <div className="qr-instruction-item">
-                  <span className="instruction-icon">📸</span>
-                  <span>Point camera at QR code</span>
-                </div>
-                <div className="qr-instruction-item">
-                  <span className="instruction-icon">👆</span>
-                  <span>Tap notification to open</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="url-fallback">
-              <h4>🔗 Or manually enter this URL:</h4>
-              <div className="url-display">
-                <input 
-                  type="text" 
-                  value={connectionUrl} 
-                  readOnly 
-                  className="url-input"
-                />
-                <button 
-                  onClick={() => navigator.clipboard.writeText(connectionUrl)}
-                  className="copy-button"
-                >
-                  📋 Copy
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="step">
-          <div className="step-number">3</div>
-          <div className="step-content">
-            <h3>🎮 Control Your Mouse</h3>
-            <div className="controls-info">
-              <div className="control-item">
-                <span className="control-icon">👆</span>
-                <span>Move finger to control cursor</span>
-              </div>
-              <div className="control-item">
-                <span className="control-icon">👆</span>
-                <span>Tap for left click</span>
-              </div>
-              <div className="control-item">
-                <span className="control-icon">👆</span>
-                <span>Long press for right click</span>
-              </div>
-              <div className="control-item">
-                <span className="control-icon">✌️</span>
-                <span>Two fingers to scroll</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="requirements">
-        <h3>📋 Requirements</h3>
-        <ul>
-          <li>Both devices must be on the same WiFi network</li>
-          <li>Node.js and npm must be installed</li>
-          <li>Terminal access to run the server</li>
-        </ul>
+        )}
       </div>
     </div>
   );
