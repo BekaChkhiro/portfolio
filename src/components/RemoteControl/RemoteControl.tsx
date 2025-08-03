@@ -6,8 +6,9 @@ const RemoteControl: React.FC = () => {
   const [connectionUrl, setConnectionUrl] = useState<string>('http://localhost:8080');
 
   const generateQRCode = (url: string): string => {
-    // Use online QR code service since require() doesn't work in Vite
-    return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
+    // Create redirect URL that will then redirect to the actual server
+    const redirectUrl = `${window.location.origin}/remote-redirect.html?url=${encodeURIComponent(url)}`;
+    return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(redirectUrl)}`;
   };
 
   const getNetworkIP = async () => {
