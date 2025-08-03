@@ -12,7 +12,8 @@ import {
   FaEnvelope,
   FaVideo,
   FaThumbtack,
-  FaUser
+  FaUser,
+  FaCamera
 } from 'react-icons/fa';
 import { Taskbar } from '../Taskbar/Taskbar';
 import { useWindows } from '../../contexts/WindowContext';
@@ -21,6 +22,7 @@ import { Portfolio } from '../Portfolio/Portfolio';
 import { Games } from '../Games/Games';
 import { Terminal } from '../Terminal/Terminal';
 import { AboutMe } from '../AboutMe/AboutMe';
+import { Camera } from '../Camera/Camera';
 import './Desktop.css';
 
 interface DesktopIconProps {
@@ -175,6 +177,14 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
       component: <AboutMe />,
       position: { x: 30, y: 30 },
       size: { width: 480, height: 350 }
+    },
+    camera: {
+      id: 'camera',
+      title: 'Camera',
+      icon: <FaCamera />,
+      component: <Camera />,
+      position: { x: 200, y: 100 },
+      size: { width: 750, height: 650 }
     }
   };
 
@@ -263,6 +273,13 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
           color="#9b59b6"
           onClick={() => openWindow(applications.about)}
           onContextMenu={(e) => handleContextMenu(e, 'about')}
+        />
+        <DesktopIcon 
+          icon={<FaCamera size={20} />} 
+          label="Camera" 
+          color="#ff9500"
+          onClick={() => openWindow(applications.camera)}
+          onContextMenu={(e) => handleContextMenu(e, 'camera')}
         />
         <DesktopIcon 
           icon={<FaRecycle size={20} />} 

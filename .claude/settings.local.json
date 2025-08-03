@@ -4,7 +4,8 @@
       "Bash(touch:*)",
       "Bash(npm start)",
       "Bash(npm run dev:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }
