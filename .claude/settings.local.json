@@ -12,7 +12,10 @@
       "Bash(true)",
       "Bash(mv:*)",
       "Bash(ls:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(curl:*)",
+      "Bash(npm rebuild:*)",
+      "Bash(tccutil reset:*)"
     ],
     "deny": []
   }
