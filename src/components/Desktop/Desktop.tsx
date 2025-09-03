@@ -1,20 +1,12 @@
 import React from 'react';
 import { 
   FaFolder, 
-  FaChrome, 
-  FaRecycle, 
-  FaCode, 
   FaGamepad, 
-  FaMusic, 
-  FaImage, 
   FaTerminal,
   FaCog,
-  FaEnvelope,
-  FaVideo,
   FaThumbtack,
   FaUser,
-  FaCamera,
-  FaMobile
+  FaCamera
 } from 'react-icons/fa';
 import { Taskbar } from '../Taskbar/Taskbar';
 import { useWindows } from '../../contexts/WindowContext';
@@ -24,7 +16,6 @@ import { Games } from '../Games/Games';
 import { Terminal } from '../Terminal/Terminal';
 import { AboutMe } from '../AboutMe/AboutMe';
 import { Camera } from '../Camera/Camera';
-import RemoteControl from '../RemoteControl/RemoteControl';
 import './Desktop.css';
 
 interface DesktopIconProps {
@@ -74,14 +65,6 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
       position: { x: 100, y: 100 },
       size: { width: 600, height: 500 }
     },
-    games: {
-      id: 'games',
-      title: 'Games',
-      icon: <FaGamepad />,
-      component: <Games />,
-      position: { x: 150, y: 150 },
-      size: { width: 500, height: 400 }
-    },
     terminal: {
       id: 'terminal',
       title: 'Terminal',
@@ -90,52 +73,12 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
       position: { x: 200, y: 100 },
       size: { width: 600, height: 400 }
     },
-    browser: {
-      id: 'browser',
-      title: 'Browser',
-      icon: <FaChrome />,
-      component: <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>🌐 ChkhiroOS Browser</h2>
-        <p>Web browser coming soon!</p>
-        <p>For now, check out the Portfolio app for my projects.</p>
-      </div>,
-      position: { x: 120, y: 120 },
-      size: { width: 700, height: 500 }
-    },
-    vscode: {
-      id: 'vscode',
-      title: 'VS Code',
-      icon: <FaCode />,
-      component: <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>💻 ChkhiroOS Code Editor</h2>
-        <p>Code editor coming soon!</p>
-        <p>For now, check out the Terminal for some command-line fun.</p>
-      </div>,
-      position: { x: 140, y: 140 },
-      size: { width: 700, height: 500 }
-    },
-    music: {
-      id: 'music',
-      title: 'Music Player',
-      icon: <FaMusic />,
-      component: <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>🎵 ChkhiroOS Music</h2>
-        <p>Music player coming soon!</p>
-        <p>🎶 Imagine your favorite coding playlist here 🎶</p>
-      </div>,
-      position: { x: 160, y: 160 },
-      size: { width: 400, height: 300 }
-    },
-    photos: {
-      id: 'photos',
-      title: 'Photos',
-      icon: <FaImage />,
-      component: <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>📸 ChkhiroOS Photos</h2>
-        <p>Photo gallery coming soon!</p>
-        <p>📷 Your memories will be beautifully organized here 📷</p>
-      </div>,
-      position: { x: 180, y: 180 },
+    games: {
+      id: 'games',
+      title: 'Games',
+      icon: <FaGamepad />,
+      component: <Games />,
+      position: { x: 150, y: 150 },
       size: { width: 500, height: 400 }
     },
     settings: {
@@ -148,28 +91,6 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
         <p>Customize your ChkhiroOS experience here.</p>
       </div>,
       position: { x: 200, y: 200 },
-      size: { width: 500, height: 400 }
-    },
-    videos: {
-      id: 'videos',
-      title: 'Videos',
-      icon: <FaVideo />,
-      component: <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>🎬 ChkhiroOS Videos</h2>
-        <p>Video player coming soon!</p>
-      </div>,
-      position: { x: 220, y: 220 },
-      size: { width: 600, height: 450 }
-    },
-    mail: {
-      id: 'mail',
-      title: 'Mail',
-      icon: <FaEnvelope />,
-      component: <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>📧 ChkhiroOS Mail</h2>
-        <p>Email client coming soon!</p>
-      </div>,
-      position: { x: 240, y: 240 },
       size: { width: 500, height: 400 }
     },
     about: {
@@ -187,14 +108,6 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
       component: <Camera />,
       position: { x: 200, y: 100 },
       size: { width: 750, height: 650 }
-    },
-    remoteControl: {
-      id: 'remoteControl',
-      title: 'Remote Control',
-      icon: <FaMobile />,
-      component: <RemoteControl />,
-      position: { x: 100, y: 100 },
-      size: { width: 650, height: 500 }
     }
   };
 
@@ -215,20 +128,6 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
           onContextMenu={(e) => handleContextMenu(e, 'portfolio')}
         />
         <DesktopIcon 
-          icon={<FaChrome size={20} />} 
-          label="Browser" 
-          color="#4285f4"
-          onClick={() => openWindow(applications.browser)}
-          onContextMenu={(e) => handleContextMenu(e, 'browser')}
-        />
-        <DesktopIcon 
-          icon={<FaCode size={20} />} 
-          label="VS Code" 
-          color="#007acc"
-          onClick={() => openWindow(applications.vscode)}
-          onContextMenu={(e) => handleContextMenu(e, 'vscode')}
-        />
-        <DesktopIcon 
           icon={<FaTerminal size={20} />} 
           label="Terminal" 
           color="#00ff00"
@@ -241,34 +140,6 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
           color="#ff6b6b"
           onClick={() => openWindow(applications.games)}
           onContextMenu={(e) => handleContextMenu(e, 'games')}
-        />
-        <DesktopIcon 
-          icon={<FaMusic size={20} />} 
-          label="Music" 
-          color="#ff69b4"
-          onClick={() => openWindow(applications.music)}
-          onContextMenu={(e) => handleContextMenu(e, 'music')}
-        />
-        <DesktopIcon 
-          icon={<FaImage size={20} />} 
-          label="Photos" 
-          color="#00d4ff"
-          onClick={() => openWindow(applications.photos)}
-          onContextMenu={(e) => handleContextMenu(e, 'photos')}
-        />
-        <DesktopIcon 
-          icon={<FaVideo size={20} />} 
-          label="Videos" 
-          color="#ff4444"
-          onClick={() => openWindow(applications.videos)}
-          onContextMenu={(e) => handleContextMenu(e, 'videos')}
-        />
-        <DesktopIcon 
-          icon={<FaEnvelope size={20} />} 
-          label="Mail" 
-          color="#ffffff"
-          onClick={() => openWindow(applications.mail)}
-          onContextMenu={(e) => handleContextMenu(e, 'mail')}
         />
         <DesktopIcon 
           icon={<FaCog size={20} />} 
@@ -290,19 +161,6 @@ export const Desktop: React.FC<DesktopProps> = ({ theme, userName = 'User', onPo
           color="#ff9500"
           onClick={() => openWindow(applications.camera)}
           onContextMenu={(e) => handleContextMenu(e, 'camera')}
-        />
-        <DesktopIcon 
-          icon={<FaMobile size={20} />} 
-          label="Remote Control" 
-          color="#00ff88"
-          onClick={() => openWindow(applications.remoteControl)}
-          onContextMenu={(e) => handleContextMenu(e, 'remoteControl')}
-        />
-        <DesktopIcon 
-          icon={<FaRecycle size={20} />} 
-          label="Bin" 
-          color="#a0a0a0"
-          onClick={() => {}}
         />
       </div>
 

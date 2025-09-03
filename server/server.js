@@ -85,9 +85,24 @@ wss.on('connection', (ws, req) => {
           robot.moveMouse(x, y);
           break;
           
+        case 'handMove':
+          // Hand tracking mouse movement
+          const screenSize2 = robot.getScreenSize();
+          const handX = Math.round(data.x * screenSize2.width);
+          const handY = Math.round(data.y * screenSize2.height);
+          robot.moveMouse(handX, handY);
+          console.log(`🖐️ Hand move: ${handX}, ${handY}`);
+          break;
+          
         case 'click':
           robot.mouseClick();
           console.log('🖱️ Left click');
+          break;
+          
+        case 'handClick':
+          // Hand tracking click (pinch gesture)
+          robot.mouseClick();
+          console.log('🖐️ Hand click (pinch)');
           break;
           
         case 'rightClick':

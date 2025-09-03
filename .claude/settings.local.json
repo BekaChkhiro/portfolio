@@ -15,7 +15,8 @@
       "Bash(node:*)",
       "Bash(curl:*)",
       "Bash(npm rebuild:*)",
-      "Bash(tccutil reset:*)"
+      "Bash(tccutil reset:*)",
+      "Bash(npm search:*)"
     ],
     "deny": []
   }
